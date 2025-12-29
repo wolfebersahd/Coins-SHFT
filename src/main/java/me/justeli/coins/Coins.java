@@ -41,6 +41,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 
+/* Eli @ December 13, 2016 (creation) */
 public final class Coins extends JavaPlugin
 {
     private static final ExecutorService ASYNC_THREAD = Executors.newSingleThreadExecutor();
@@ -57,6 +58,22 @@ public final class Coins extends JavaPlugin
         more features to Bukkit.""";
 
     private static final String LACKING_ECONOMY = "There is no proper economy installed. Please install %s.";
+
+    @Override
+    public void onLoad() {
+        // Register WorldGuard flag as early as possible
+        if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+            try {
+                WorldGuardHook.register(this); // pass plugin instance
+                console(Level.INFO, "WorldGuard detected, coins-drop flag registered successfully.");
+            } catch (Exception e) {
+                console(Level.SEVERE, "Failed to register WorldGuard coins-drop flag: " + e.getMessage());
+            }
+        } else {
+            console(Level.WARNING, "WorldGuard not found on load. Coins-drop flag not registered.");
+        }
+    }
+
 
     @Override
     public void onEnable() {
@@ -105,16 +122,6 @@ public final class Coins extends JavaPlugin
 
             registerEvents();
             registerCommands();
-
-            // WorldGuard registration now in onEnable() safely
-            getServer().getScheduler().runTask(this, () -> {
-                try {
-                    WorldGuardHook.register(this); // Pass plugin instance to WorldGuardHook
-                    console(Level.INFO, "WorldGuard detected, coins-drop flag registered successfully.");
-                } catch (Exception e) {
-                    console(Level.SEVERE, "Failed to register WorldGuard coins-drop flag: " + e.getMessage());
-                }
-            });
 
             ASYNC_THREAD.submit(() -> {
                 versionChecker();
