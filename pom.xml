@@ -8,8 +8,6 @@
     <artifactId>Coins</artifactId>
     <version>b1.13.2</version>
     <name>Coins</name>
-    <description>Coins is a plugin that allows players to collect coins for killing mobs and mining precious blocks. It also comes with the ability to withdraw balance into physical coins.</description>
-    <url>https://www.spigotmc.org/resources/coins.33382/</url>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -25,38 +23,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.3.0</version>
-                <configuration>
-                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-                    <relocations>
-                        <relocation>
-                            <pattern>io.papermc</pattern>
-                            <shadedPattern>me.justeli.coins.shaded.io.papermc</shadedPattern>
-                        </relocation>
-                    </relocations>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/**</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
+                        <goals><goal>shade</goal></goals>
                     </execution>
                 </executions>
             </plugin>
@@ -76,12 +51,12 @@
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>enginehub-maven</id>
-            <url>https://maven.enginehub.org/repo/</url>
+            <id>lumine-releases</id>
+            <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>lumine-maven</id>
-            <url>https://repo.lumine.io/repository/maven-public/</url>
+            <id>enginehub-maven</id>
+            <url>https://maven.enginehub.org/repo/</url>
         </repository>
         <repository>
             <id>jitpack-repo</id>
@@ -94,7 +69,7 @@
     </repositories>
 
     <dependencies>
-        <!-- Paper & Spigot API -->
+        <!-- Paper & Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -108,13 +83,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- MythicMobs (optional, provided by server) -->
+        <!-- MythicMobs 5.9.5 -->
         <dependency>
             <groupId>io.lumine</groupId>
             <artifactId>Mythic-Dist</artifactId>
-            <version>5.6.1</version>
+            <version>5.9.5</version>
             <scope>provided</scope>
-            <optional>true</optional>
         </dependency>
 
         <!-- Vault -->
@@ -141,20 +115,19 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- PaperLib utility -->
-        <dependency>
-            <groupId>io.papermc</groupId>
-            <artifactId>paperlib</artifactId>
-            <version>1.0.7</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- Mojang AuthLib -->
+        <!-- AuthLib -->
         <dependency>
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
             <version>1.5.21</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- PaperLib utility -->
+        <dependency>
+            <groupId>io.papermc</groupId>
+            <artifactId>paperlib</artifactId>
+            <version>1.0.7</version>
         </dependency>
     </dependencies>
 </project>
