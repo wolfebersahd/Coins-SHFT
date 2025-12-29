@@ -32,6 +32,13 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.justeli.coins.hooks.WorldGuardHook;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.bukkit.WorldGuard;
+import com.sk89q.worldguard.bukkit.flags.FlagRegistry;
+import com.sk89q.worldguard.bukkit.flags.StateFlag;
+import com.sk89q.worldguard.bukkit.flags.FlagConflictException;
+import com.sk89q.worldguard.bukkit.flags.Flag;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +47,7 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
+
 
 /* Eli @ December 13, 2016 (creation) */
 public final class Coins extends JavaPlugin
