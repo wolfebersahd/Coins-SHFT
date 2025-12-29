@@ -30,6 +30,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import me.justeli.coins.hooks.WorldGuardHook;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -85,6 +87,13 @@ public final class Coins
             line(Level.SEVERE);
             console(Level.SEVERE, USING_BUKKIT);
             disablePlugin(USING_BUKKIT);
+        }
+        
+        // WorldGuard integration
+        if (getServer().getPluginManager().isPluginEnabled("WorldGuard"))
+        {
+            WorldGuardHook.register();
+            console(Level.INFO, "WorldGuard detected, coins-drop flag registered.");
         }
         
         this.economy = new Economies(this);
