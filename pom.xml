@@ -16,44 +16,31 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spigot.version>1.20.6-R0.1-SNAPSHOT</spigot.version>
+
+        <!-- Java 17 compatible versions -->
+        <spigot.version>1.20.5-R0.1-SNAPSHOT</spigot.version>
         <vault.version>1.7</vault.version>
         <mythicmobs.version>5.6.1</mythicmobs.version>
         <worldguard.version>7.0.9</worldguard.version>
     </properties>
 
     <repositories>
-        <!-- Spigot -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
-
-        <!-- JitPack -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
-
-        <!-- Lumine -->
         <repository>
             <id>lumine-repo</id>
             <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
-
-        <!-- WorldGuard / EngineHub -->
         <repository>
             <id>sk89q-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
-
-        <!-- PaperMC -->
-        <repository>
-            <id>papermc-repo</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
-        </repository>
-
-        <!-- Mojang AuthLib -->
         <repository>
             <id>mojang</id>
             <url>https://libraries.minecraft.net/</url>
@@ -61,7 +48,7 @@
     </repositories>
 
     <dependencies>
-        <!-- Paper API (Java 17 compatible) -->
+        <!-- Spigot API (Java 17 compatible) -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -101,6 +88,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Mojang AuthLib -->
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.25</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -116,19 +111,11 @@
             <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Mojang AuthLib -->
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>1.5.25</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Maven Compiler Plugin -->
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -140,7 +127,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Shade Plugin -->
+            <!-- Shade Plugin (optional) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -157,4 +144,3 @@
         </plugins>
     </build>
 </project>
-
