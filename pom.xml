@@ -1,87 +1,76 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>me.justeli</groupId>
     <artifactId>coins-shft</artifactId>
     <version>1.0.0</version>
-    <name>Coins‑SHFT</name>
+    <packaging>jar</packaging>
+
+    <name>Coins-SHFT</name>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <paper.version>1.20.4-R0.1-SNAPSHOT</paper.version>
+        <worldguard.version>7.0.10</worldguard.version>
+        <vault.version>1.7</vault.version>
     </properties>
 
     <repositories>
-        <!-- Paper API -->
+        <!-- Paper repository -->
         <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
 
-        <!-- EngineHub: WorldGuard & WorldEdit -->
+        <!-- EngineHub (WorldGuard/WorldEdit) -->
         <repository>
-            <id>enginehub-repo</id>
+            <id>enginehub</id>
             <url>https://maven.enginehub.org/repo/</url>
-        </repository>
-
-        <!-- JitPack: VaultAPI -->
-        <repository>
-            <id>jitpack-repo</id>
-            <url>https://jitpack.io</url>
-        </repository>
-
-        <!-- Maven Central (fallback) -->
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
         </repository>
     </repositories>
 
     <dependencies>
-
-        <!-- Paper 1.20.6 API (provided by server at runtime) -->
+        <!-- Paper API -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
+            <version>${paper.version}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Vault API (compile only) -->
+        <!-- Vault -->
         <dependency>
-            <groupId>com.github.MilkBowl</groupId>
+            <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.7</version>
+            <version>${vault.version}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- WorldGuard API (compile only) -->
+        <!-- WorldGuard -->
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
-            <artifactId>worldguard-bukkit</artifactId>
-            <version>7.0.10</version>
+            <artifactId>worldguard-core</artifactId>
+            <version>${worldguard.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Optional: WorldEdit (if you need WorldEdit classes) -->
-        <dependency>
-            <groupId>com.sk89q.worldedit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>7.3.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- bStats metrics (compile only, read plugin.yml before running) -->
-        <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.2</version>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
+
