@@ -17,15 +17,11 @@ public final class WorldGuardHook {
 
     private WorldGuardHook() {}
 
-    /**
-     * Safely registers the coins-drop flag.
-     * Must be called after plugin enable, but will not crash if it's too late.
-     */
     public static void register(Plugin plugin) {
-        if (initialized) return; // already done
+        if (initialized) return;
         initialized = true;
 
-        // Delay registration by 1 tick to avoid WorldGuard initialization issues
+        // Delay registration by 1 tick
         Bukkit.getScheduler().runTask(plugin, () -> {
             try {
                 StateFlag flag = new StateFlag("coins-drop", true);
@@ -39,7 +35,6 @@ public final class WorldGuardHook {
                     plugin.getLogger().info("Using existing WorldGuard coins-drop flag.");
                 }
             } catch (IllegalStateException e) {
-                // Happens if WorldGuard does not allow new flags at this time
                 Flag<?> existing = WorldGuard.getInstance().getFlagRegistry().get("coins-drop");
                 if (existing instanceof StateFlag) {
                     COINS_DROP_FLAG = (StateFlag) existing;
@@ -51,9 +46,6 @@ public final class WorldGuardHook {
         });
     }
 
-    /**
-     * Checks if coins can drop at a given location.
-     */
     public static boolean canDropCoins(Location location) {
         if (COINS_DROP_FLAG == null) return true;
 
