@@ -90,10 +90,7 @@ public final class Coins
         }
         
         // WorldGuard integration
-        if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
-            WorldGuardHook.register(this);
-            console(Level.INFO, "WorldGuard detected, coins-drop flag registration scheduled.");
-        }
+        WorldGuardHook.register(this);
         
         this.economy = new Economies(this);
         for (String missingPlugin : this.economy.getMissingPluginNames())
