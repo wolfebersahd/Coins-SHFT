@@ -10,45 +10,65 @@
     <packaging>jar</packaging>
 
     <name>Coins-SHFT</name>
-    <url>https://example.com</url>
 
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <!-- Java 17 compatible versions -->
-        <spigot.version>1.20.5-R0.1</spigot.version>
+        <!-- Versions -->
+        <spigot.version>1.20.5-R0.1-SNAPSHOT</spigot.version>
         <vault.version>1.7</vault.version>
         <mythicmobs.version>5.6.1</mythicmobs.version>
         <worldguard.version>7.0.9</worldguard.version>
+        <bstats.version>3.0.0</bstats.version>
     </properties>
 
     <repositories>
+        <!-- PaperMC Maven (SNAPSHOT + RELEASE) -->
         <repository>
-            <id>spigot-repo</id>
+            <id>papermc</id>
+            <name>PaperMC Repository</name>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+
+        <!-- Spigot / Bukkit API -->
+        <repository>
+            <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
+
+        <!-- JitPack (VaultAPI) -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
+        <!-- MythicMobs (Lumine) -->
         <repository>
-            <id>lumine-repo</id>
+            <id>lumine-releases</id>
             <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
+
+        <!-- WorldGuard / EngineHub -->
         <repository>
             <id>sk89q-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
+
+        <!-- Sonatype OSS Snapshots (for Adventure snapshots pulled by Paper) -->
         <repository>
-            <id>mojang</id>
-            <url>https://libraries.minecraft.net/</url>
+            <id>sonatype-oss-snapshots</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots><enabled>true</enabled></snapshots>
         </repository>
+
     </repositories>
 
     <dependencies>
-        <!-- Spigot API (Java 17 compatible) -->
+        <!-- Paper API (compileOnly because plugin runs on server) -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -64,11 +84,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- PaperLib -->
+        <!-- MythicMobs (distribution) -->
         <dependency>
-            <groupId>io.papermc</groupId>
-            <artifactId>paperlib</artifactId>
-            <version>1.0.8</version>
+            <groupId>io.lumine</groupId>
+            <artifactId>Mythic-Dist</artifactId>
+            <version>${mythicmobs.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -80,15 +100,15 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- MythicMobs -->
+        <!-- bStats Metrics -->
         <dependency>
-            <groupId>io.lumine</groupId>
-            <artifactId>Mythic-Dist</artifactId>
-            <version>${mythicmobs.version}</version>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>${bstats.version}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Mojang AuthLib -->
+        <!-- Mojang AuthLib (for Skull/GameProfile) -->
         <dependency>
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
@@ -96,26 +116,18 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Annotations -->
+        <!-- JetBrains Annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
-
-        <!-- bStats -->
-        <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.0</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Compiler -->
+            <!-- Compiler Plugin for Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -127,7 +139,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Shade Plugin (optional) -->
+            <!-- Shade Plugin (optional, remove if not shading) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
