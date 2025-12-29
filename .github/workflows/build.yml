@@ -32,7 +32,7 @@ jobs:
 
     # 4. Upload JAR artifact with commit hash in filename
     - name: Upload JAR
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: CoinsPlugin-${{ github.sha }}
         path: target/*.jar
