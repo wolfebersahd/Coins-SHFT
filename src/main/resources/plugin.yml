@@ -1,9 +1,9 @@
-main: '${project.groupId}.${project.name}'
-name: '${project.name}'
-version: '${project.version}'
-website: '${project.url}'
-description: '${project.description}'
-api-version: '1.17'
+name: Coins-SHFT
+main: me.justeli.coins.Coins
+version: 1.0.0
+website: 'https://github.com/JustEli/Coins-SHFT'
+description: 'Coins plugin for Minecraft servers with Vault, WorldGuard, MythicMobs and mcMMO support.'
+api-version: '1.20'
 authors: [JustEli]
 softdepend: [Vault, WorldGuard, mcMMO, MythicMobs]
 libraries:
