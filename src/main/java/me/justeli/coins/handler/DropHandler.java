@@ -24,6 +24,9 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import me.justeli.coins.hooks.WorldGuardHook;
+import org.bukkit.Bukkit;
+
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -88,6 +91,12 @@ public final class DropHandler
 
     private void loseOnDeathHandler (@NotNull Player dead)
     {
+        // WorldGuard check: cancel coin drop if region DENY
+        if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")
+            && !WorldGuardHook.canDropCoins(dead.getLocation()))
+        {
+            return; // stop here — no coins dropped in this region
+        }
         double random = Util.getRandomTakeAmount();
         this.coins.economy().balance(dead.getUniqueId(), balance ->
         {
