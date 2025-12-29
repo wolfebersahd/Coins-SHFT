@@ -63,10 +63,17 @@ public final class Coins extends JavaPlugin
     public void onLoad() {
         // Register WorldGuard flag as early as possible
         if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
-            WorldGuardHook.register(this); // <-- pass the plugin instance
-            console(Level.INFO, "WorldGuard detected, coins-drop flag registered.");
+            try {
+                WorldGuardHook.register(this); // pass plugin instance
+                console(Level.INFO, "WorldGuard detected, coins-drop flag registered successfully.");
+            } catch (Exception e) {
+                console(Level.SEVERE, "Failed to register WorldGuard coins-drop flag: " + e.getMessage());
+            }
+        } else {
+            console(Level.WARNING, "WorldGuard not found on load. Coins-drop flag not registered.");
         }
     }
+
 
     @Override
     public void onEnable() {
