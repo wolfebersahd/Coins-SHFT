@@ -39,6 +39,10 @@
             <id>sk89q-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
+        <repository>
+            <id>mojang</id>
+            <url>https://libraries.minecraft.net/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -97,6 +101,14 @@
             <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Mojang AuthLib for GameProfile and Properties -->
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.25</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -113,7 +125,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Shade Plugin (optional if you want a fat jar) -->
+            <!-- Maven Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -124,11 +136,6 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <relocations>
-                                <!-- Optional: relocate packages if needed -->
-                            </relocations>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
