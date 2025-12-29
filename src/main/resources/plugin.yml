@@ -5,7 +5,8 @@ website: 'https://github.com/JustEli/Coins-SHFT'
 description: 'Coins plugin for Minecraft servers with Vault, WorldGuard, MythicMobs and mcMMO support.'
 api-version: '1.20'
 authors: [JustEli]
-softdepend: [Vault, WorldGuard, mcMMO, MythicMobs]
+depend: [WorldGuard]
+softdepend: [Vault, mcMMO, MythicMobs]
 libraries:
   - org.bstats:bstats-bukkit:3.0.2
 commands:
