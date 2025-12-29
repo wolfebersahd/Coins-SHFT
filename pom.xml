@@ -23,22 +23,37 @@
     </properties>
 
     <repositories>
+        <!-- Spigot -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
+
+        <!-- JitPack -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
+        <!-- Lumine -->
         <repository>
             <id>lumine-repo</id>
             <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
+
+        <!-- WorldGuard / EngineHub -->
         <repository>
             <id>sk89q-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
+
+        <!-- PaperMC -->
+        <repository>
+            <id>papermc-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+
+        <!-- Mojang AuthLib -->
         <repository>
             <id>mojang</id>
             <url>https://libraries.minecraft.net/</url>
@@ -46,15 +61,7 @@
     </repositories>
 
     <dependencies>
-        <!-- Spigot API -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>${spigot.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Paper API (for PlayerAttemptPickupItemEvent) -->
+        <!-- Paper API (Java 17 compatible) -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -110,7 +117,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Mojang AuthLib for GameProfile and Properties -->
+        <!-- Mojang AuthLib -->
         <dependency>
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
@@ -150,3 +157,4 @@
         </plugins>
     </build>
 </project>
+
