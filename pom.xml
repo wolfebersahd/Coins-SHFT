@@ -20,7 +20,7 @@
         <paper.version>1.20.4-R0.1-SNAPSHOT</paper.version>
         <vault.version>1.7</vault.version>
         <mythicmobs.version>5.6.1</mythicmobs.version>
-        <worldguard.version>7.0.10</worldguard.version>
+        <worldguard.version>7.0.9</worldguard.version>
         <bstats.version>3.0.0</bstats.version>
         <paperlib.version>1.0.8</paperlib.version>
     </properties>
