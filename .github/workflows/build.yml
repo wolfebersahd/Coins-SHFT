@@ -1,38 +1,32 @@
-name: Build Coins Plugin
+name: Build Coins
 
 on:
   push:
     branches:
-      - '**'
+      - main
   pull_request:
     branches:
-      - '**'
+      - main
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout the repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # 2. Set up Java 17
-    - name: Set up Java 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: 'maven'
+      - name: Set up Java 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 21
 
-    # 3. Build with Maven
-    - name: Build with Maven
-      run: mvn clean package -B
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
 
-    # 4. Upload JAR artifact with commit hash in filename
-    - name: Upload JAR
-      uses: actions/upload-artifact@v4
-      with:
-        name: CoinsPlugin-${{ github.sha }}
-        path: target/*.jar
+      - name: Upload built JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: Coins-JAR
+          path: target/*.jar
