@@ -2,6 +2,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.justeli</groupId>
@@ -13,70 +14,75 @@
 
     <properties>
         <java.version>17</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Versions -->
-        <spigot.version>1.20.4-R0.1-SNAPSHOT</spigot.version>
+        <!-- API Versions -->
+        <paper.version>1.20.4-R0.1-SNAPSHOT</paper.version>
         <vault.version>1.7</vault.version>
         <mythicmobs.version>5.6.1</mythicmobs.version>
         <worldguard.version>7.0.9</worldguard.version>
         <bstats.version>3.0.0</bstats.version>
+        <paperlib.version>1.0.8</paperlib.version>
     </properties>
 
+    <!-- ===================== -->
+    <!-- Repositories -->
+    <!-- ===================== -->
     <repositories>
-        <!-- PaperMC Maven (SNAPSHOT + RELEASE) -->
+
+        <!-- PaperMC -->
         <repository>
             <id>papermc</id>
-            <name>PaperMC Repository</name>
             <url>https://repo.papermc.io/repository/maven-public/</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
         </repository>
 
-        <!-- Spigot / Bukkit API -->
+        <!-- Spigot / Bukkit -->
         <repository>
-            <id>spigotmc-repo</id>
+            <id>spigotmc</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
 
-        <!-- JitPack (VaultAPI) -->
+        <!-- Vault -->
         <repository>
-            <id>jitpack.io</id>
+            <id>jitpack</id>
             <url>https://jitpack.io</url>
         </repository>
 
-        <!-- MythicMobs (Lumine) -->
+        <!-- MythicMobs -->
         <repository>
-            <id>lumine-releases</id>
+            <id>lumine</id>
             <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
 
-        <!-- WorldGuard / EngineHub -->
+        <!-- WorldGuard / WorldEdit -->
         <repository>
-            <id>sk89q-repo</id>
+            <id>enginehub</id>
             <url>https://maven.enginehub.org/repo/</url>
-        </repository>
-
-        <!-- Sonatype OSS Snapshots (for Adventure snapshots pulled by Paper) -->
-        <repository>
-            <id>sonatype-oss-snapshots</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots><enabled>true</enabled></snapshots>
         </repository>
 
     </repositories>
 
+    <!-- ===================== -->
+    <!-- Dependencies -->
+    <!-- ===================== -->
     <dependencies>
-        <!-- Paper API (compileOnly because plugin runs on server) -->
+
+        <!-- Paper API -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>${spigot.version}</version>
+            <version>${paper.version}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Vault API -->
+        <!-- PaperLib (REQUIRED) -->
+        <dependency>
+            <groupId>io.papermc</groupId>
+            <artifactId>paperlib</artifactId>
+            <version>${paperlib.version}</version>
+        </dependency>
+
+        <!-- Vault -->
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
@@ -84,7 +90,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- MythicMobs (distribution) -->
+        <!-- MythicMobs -->
         <dependency>
             <groupId>io.lumine</groupId>
             <artifactId>Mythic-Dist</artifactId>
@@ -100,7 +106,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- bStats Metrics -->
+        <!-- bStats -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
@@ -108,7 +114,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Mojang AuthLib (for Skull/GameProfile) -->
+        <!-- Mojang AuthLib -->
         <dependency>
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
@@ -121,13 +127,18 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.0.1</version>
-            <scope>compile</scope>
         </dependency>
+
     </dependencies>
 
+    <!-- ===================== -->
+    <!-- Build -->
+    <!-- ===================== -->
     <build>
+
         <plugins>
-            <!-- Compiler Plugin for Java 17 -->
+
+            <!-- Java 17 Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -135,11 +146,10 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
-            <!-- Shade Plugin (optional, remove if not shading) -->
+            <!-- Shade PaperLib -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -150,9 +160,20 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>io.papermc.lib</pattern>
+                                    <shadedPattern>me.justeli.coins.lib.paperlib</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
+
     </build>
+
 </project>
