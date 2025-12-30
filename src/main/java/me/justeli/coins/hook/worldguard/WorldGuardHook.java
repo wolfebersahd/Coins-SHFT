@@ -25,30 +25,6 @@ public final class WorldGuardHook {
     private WorldGuardHook() {}
 
     /**
-     * Initialize WorldGuard integration and flags.
-     *
-     * @param plugin The plugin instance
-     */
-    public static boolean init(@NotNull Plugin plugin) {
-        if (!(plugin instanceof WorldGuardPlugin)) {
-            return false;
-        }
-        
-        wgPlugin = (WorldGuardPlugin) plugin;
-        
-        // Register custom flags here
-        try {
-            COINS_DROP_FLAG = new StateFlag("coins-drop", true);
-            WorldGuard.getInstance().getFlagRegistry().register(COINS_DROP_FLAG);
-            Bukkit.getLogger().info("[Coins-SHFT] Custom WorldGuard flags registered successfully.");
-        } catch (Exception e) {
-            Bukkit.getLogger().log(Level.WARNING, "[Coins-SHFT] Failed to register coins-drop flag with WorldGuard.", e);
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Checks whether coins can drop at the given location, according to WorldGuard region flags.
      *
      * @param location the location to test
