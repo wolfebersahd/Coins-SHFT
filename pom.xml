@@ -98,12 +98,19 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- WorldGuard -->
+        <!-- WorldGuard API (Correct Dependency for Compilation) -->
+       <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-api</artifactId>
+            <version>${worldguard.version}</version>
+        </dependency>
+
+        <!-- WorldGuard Bukkit (Provided for runtime) -->
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
             <version>${worldguard.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <!-- bStats -->
