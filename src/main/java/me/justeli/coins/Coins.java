@@ -61,6 +61,12 @@ public final class Coins extends JavaPlugin
 
     private static final String LACKING_ECONOMY = "There is no proper economy installed. Please install %s.";
 
+    private static Coins instance;
+
+    public static Coins getInstance() {
+        return instance;
+    }
+    
     @Override
     public void onLoad() {
         instance = this;
