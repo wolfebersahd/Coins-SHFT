@@ -1,4 +1,4 @@
-package me.justeli.coins.worldguard;
+package me.justeli.coins;
 
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.flags.StateFlag;
