@@ -121,7 +121,7 @@ public final class Coins extends JavaPlugin
             // Initialize the WorldGuard hook (this ensures the COINS_DROP_FLAG is set up)
             WorldGuardHook.initialize(this);
         } else {
-            Bukkit.getLogger().log(Level.WARNING, "[Coins-SHFT] WorldGuard not found. Coins drop flag functionality will be disabled.");
+            console(Level.WARNING, "[Coins-SHFT] WorldGuard not found. Coins drop flag functionality will be disabled.");
         }
 
         if (this.disabledReasons.isEmpty()) {
