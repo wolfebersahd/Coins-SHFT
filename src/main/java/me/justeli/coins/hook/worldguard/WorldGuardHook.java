@@ -1,39 +1,76 @@
 package me.justeli.coins.hooks;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.logging.Level;
 
 public final class WorldGuardHook {
-    
+
+    /** The custom coins-drop flag. True = coins can drop, False = cannot drop. */
     public static StateFlag COINS_DROP_FLAG;
 
-    private WorldGuardPlugin worldGuardPlugin;
+    private static WorldGuardPlugin wgPlugin;
 
-    public WorldGuardHook(JavaPlugin plugin) {
-        // Ensure WorldGuardPlugin is available
-        worldGuardPlugin = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
+    // Private constructor to prevent instantiation
+    private WorldGuardHook() {}
+
+    /**
+     * Initialize WorldGuard integration and flags.
+     *
+     * @param plugin The plugin instance
+     */
+    public static boolean init(@NotNull Plugin plugin) {
+        if (!(plugin instanceof WorldGuardPlugin)) {
+            return false;
+        }
         
-        if (worldGuardPlugin != null) {
-            // Register the flag with a delayed task to ensure it's fully initialized
-            Bukkit.getScheduler().runTask(plugin, this::registerFlag);
-        } else {
-            plugin.getLogger().warning("WorldGuard plugin is not found!");
-        }
-    }
-
-    private void registerFlag() {
+        wgPlugin = (WorldGuardPlugin) plugin;
+        
+        // Register custom flags here
         try {
-            // Register the coins-drop flag
             COINS_DROP_FLAG = new StateFlag("coins-drop", true);
-            worldGuardPlugin.getFlagRegistry().register(COINS_DROP_FLAG);
-            Bukkit.getLogger().info("[Coins-SHFT] Custom WorldGuard flag 'coins-drop' registered successfully.");
+            WorldGuard.getInstance().getFlagRegistry().register(COINS_DROP_FLAG);
+            Bukkit.getLogger().info("[Coins-SHFT] Custom WorldGuard flags registered successfully.");
         } catch (Exception e) {
-            Bukkit.getLogger().warning("[Coins-SHFT] Failed to register coins-drop flag with WorldGuard: " + e.getMessage());
+            Bukkit.getLogger().log(Level.WARNING, "[Coins-SHFT] Failed to register coins-drop flag with WorldGuard.", e);
+            return false;
         }
+        return true;
     }
 
-    // Other WorldGuard integration methods...
+    /**
+     * Checks whether coins can drop at the given location, according to WorldGuard region flags.
+     *
+     * @param location the location to test
+     * @return true if coins can drop, false if blocked by region
+     */
+    public static boolean canDropCoins(Location location) {
+        if (COINS_DROP_FLAG == null) {
+            return true; // Default to true if the flag hasn't been initialized
+        }
+
+        try {
+            // Query the region container for the state of the "coins-drop" flag
+            RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+            return container.createQuery().testState(
+                    BukkitAdapter.adapt(location),
+                    null,
+                    COINS_DROP_FLAG
+            );
+        } catch (Exception e) {
+            // In case WorldGuard is not available or any other error occurs
+            Bukkit.getLogger().log(Level.WARNING, "[Coins-SHFT] Failed to check WorldGuard coins-drop flag at location " + location, e);
+            return true; // Default to true in case of error (fallback behavior)
+        }
+    }
 }
