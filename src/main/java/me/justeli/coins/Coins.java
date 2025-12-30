@@ -32,12 +32,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.justeli.coins.hooks.WorldGuardHook;
 
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.protection.flags.StateFlag;
-import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
-import com.sk89q.worldguard.protection.flags.FlagConflictException;  // <-- Added this import
-import com.sk89q.worldguard.protection.flags.Flag;  // <-- Added this import
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
