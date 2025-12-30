@@ -35,6 +35,8 @@ import me.justeli.coins.hooks.WorldGuardHook;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
+import com.sk89q.worldguard.protection.flags.FlagConflictException;  // <-- Added this import
+import com.sk89q.worldguard.protection.flags.Flag;  // <-- Added this import
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,6 +65,9 @@ public final class Coins extends JavaPlugin
         more features to Bukkit.""";
 
     private static final String LACKING_ECONOMY = "There is no proper economy installed. Please install %s.";
+
+    // Add the static field to store the WorldGuard flag
+    private static StateFlag COINS_DROP_FLAG;
 
     @Override
     public void onLoad() {
