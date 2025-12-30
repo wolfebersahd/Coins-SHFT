@@ -1,5 +1,6 @@
 package me.justeli.coins;
 
+import me.justeli.coins.Coins;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
