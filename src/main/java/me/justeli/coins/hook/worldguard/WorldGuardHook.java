@@ -4,12 +4,12 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.StateFlag;
-import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.managers.RegionContainer;
 import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldedit.math.BlockVector3;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 
@@ -52,7 +52,10 @@ public final class WorldGuardHook {
         try {
             // Get the region container from WorldGuard
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-            // Convert the location to WorldGuard's format
+            // Convert the location to BlockVector3
+            BlockVector3 vector = BukkitAdapter.asBlockVector(location);
+
+            // Get the region manager for the world
             RegionManager regions = container.get(BukkitAdapter.adapt(location.getWorld()));
 
             if (regions == null) {
@@ -60,8 +63,7 @@ public final class WorldGuardHook {
             }
 
             // Query the region for the coins-drop flag
-            boolean canDrop = regions.getApplicableRegions(BukkitAdapter.adapt(location))
-                                      .testState(COINS_DROP_FLAG);
+            boolean canDrop = regions.getApplicableRegions(vector).testState(COINS_DROP_FLAG);
 
             return canDrop; // Returns true if the flag allows coins to drop, false if blocked
         } catch (Exception e) {
