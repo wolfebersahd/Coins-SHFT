@@ -117,11 +117,14 @@ public final class Coins extends JavaPlugin
         }
 
         // Initialize WorldGuard hook if available
-        if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
-            // Initialize the WorldGuard hook (this ensures the COINS_DROP_FLAG is set up)
-            WorldGuardHook.initialize(this);
+        Plugin wgPlugin = getServer().getPluginManager().getPlugin("WorldGuard");
+        if (wgPlugin != null) {
+            if (!WorldGuardHook.init(wgPlugin)) {
+                console(Level.SEVERE, "WorldGuard integration failed, the plugin might not work properly.");
+                disablePlugin("WorldGuard integration failed");
+            }
         } else {
-            console(Level.WARNING, "[Coins-SHFT] WorldGuard not found. Coins drop flag functionality will be disabled.");
+            console(Level.WARNING, "WorldGuard not found. Coins plugin will function without WorldGuard.");
         }
 
         if (this.disabledReasons.isEmpty()) {
