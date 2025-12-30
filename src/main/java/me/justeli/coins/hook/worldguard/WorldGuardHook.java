@@ -1,14 +1,15 @@
 package me.justeli.coins.hooks;
 
-import com.sk89q.worldguard.bukkit.BukkitAdapter;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.flags.StateFlag;
-import com.sk89q.worldguard.protection.managers.RegionContainer;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.plugin.Plugin;
+import com.sk89q.worldedit.bukkit.BukkitAdapter; // For converting Location to BlockVector3
+import com.sk89q.worldguard.WorldGuard; // Main WorldGuard API
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin; // WorldGuard plugin class
+import com.sk89q.worldguard.protection.flags.StateFlag; // For custom flags like coins-drop
+import com.sk89q.worldguard.protection.managers.RegionContainer; // Region container to manage regions
+import com.sk89q.worldguard.protection.managers.RegionManager; // Region manager to interact with regions
+import com.sk89q.worldedit.math.BlockVector3; // For converting Location to BlockVector3
+import org.bukkit.Bukkit; // For getting the server's logger and managing plugins
+import org.bukkit.Location; // To use Location objects from Bukkit
+import org.bukkit.plugin.Plugin; // For handling the plugin instance
 
 import java.util.logging.Level;
 
