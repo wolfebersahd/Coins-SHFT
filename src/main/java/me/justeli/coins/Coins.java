@@ -71,41 +71,11 @@ public final class Coins extends JavaPlugin
 
     @Override
     public void onLoad() {
-        // Register WorldGuard flag as early as possible
-        Plugin worldGuardPlugin = getServer().getPluginManager().getPlugin("WorldGuard");
+        instance = this;
 
-        if (worldGuardPlugin != null && worldGuardPlugin.isEnabled()) {
-            try {
-                // Register the custom flag using the WorldGuard FlagRegistry
-                FlagRegistry registry = WorldGuard.getInstance().getFlagRegistry();
-                
-                // Create a new StateFlag (you can replace "coins-drop" with whatever name you want)
-                StateFlag flag = new StateFlag("coins-drop", true);
-                
-                // Register the flag with WorldGuard
-                registry.register(flag);
-                
-                // Store the flag in the static field for later use
-                COINS_DROP_FLAG = flag;
-                
-                console(Level.INFO, "WorldGuard detected, coins-drop flag registered successfully.");
-            } catch (FlagConflictException e) {
-                // Handle the case where the flag name already exists
-                Flag<?> existingFlag = WorldGuard.getInstance().getFlagRegistry().get("coins-drop");
-                if (existingFlag instanceof StateFlag) {
-                    COINS_DROP_FLAG = (StateFlag) existingFlag;
-                    console(Level.WARNING, "Flag with name 'coins-drop' already exists, using existing flag.");
-                } else {
-                    console(Level.SEVERE, "Flag conflict detected, but flag types do not match. This is bad news!");
-                }
-            } catch (Exception e) {
-                console(Level.SEVERE, "Failed to register WorldGuard coins-drop flag: " + e.getMessage());
-            }
-        } else {
-            console(Level.WARNING, "WorldGuard not found or not enabled. Coins-drop flag not registered.");
-        }
+        // Register custom flags with WorldGuard
+        CustomFlags.register();
     }
-
 
     @Override
     public void onEnable() {
