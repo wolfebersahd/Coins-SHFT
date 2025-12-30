@@ -116,9 +116,6 @@ public final class Coins extends JavaPlugin
             }
         }
 
-        // Initialize WorldGuard hook if available
-        WorldGuardHook.init(this);
-
         if (this.disabledReasons.isEmpty()) {
             this.settings = new Settings(this);
             reload();
