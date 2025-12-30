@@ -95,7 +95,7 @@ public final class DropHandler
         if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")
             && !WorldGuardHook.canDropCoins(dead.getLocation())) {
             // If coin drop is denied in the region, return early to prevent money being taken
-            Util.send(Config.DEATH_MESSAGE_POSITION, dead, "Coins drop is denied in this region.", 0);
+            Util.send(Config.DEATH_MESSAGE_POSITION, dead, "Your waller is safe in this region.", 0);
             return; // Stop further processing (no coins dropped, no money taken)
         }
         
