@@ -117,15 +117,7 @@ public final class Coins extends JavaPlugin
         }
 
         // Initialize WorldGuard hook if available
-        Plugin wgPlugin = getServer().getPluginManager().getPlugin("WorldGuard");
-        if (wgPlugin != null) {
-            if (!WorldGuardHook.init(wgPlugin)) {
-                console(Level.SEVERE, "WorldGuard integration failed, the plugin might not work properly.");
-                disablePlugin("WorldGuard integration failed");
-            }
-        } else {
-            console(Level.WARNING, "WorldGuard not found. Coins plugin will function without WorldGuard.");
-        }
+        WorldGuardHook.init(this);
 
         if (this.disabledReasons.isEmpty()) {
             this.settings = new Settings(this);
