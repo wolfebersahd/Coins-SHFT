@@ -1,12 +1,11 @@
 package me.justeli.coins.hooks;
 
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionContainer;
 import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldedit.math.BlockVector3;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
@@ -45,6 +44,7 @@ public final class WorldGuardHook {
      * @return true if coins can drop, false if blocked by region
      */
     public static boolean canDropCoins(Location location) {
+        // Make sure the flag is initialized
         if (COINS_DROP_FLAG == null) {
             return true; // Default to true if the flag hasn't been initialized
         }
@@ -53,7 +53,7 @@ public final class WorldGuardHook {
             // Get the region container from WorldGuard
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             // Convert the location to BlockVector3
-            BlockVector3 vector = BukkitAdapter.asBlockVector(location);
+            var vector = BukkitAdapter.asBlockVector(location);
 
             // Get the region manager for the world
             RegionManager regions = container.get(BukkitAdapter.adapt(location.getWorld()));
@@ -62,12 +62,18 @@ public final class WorldGuardHook {
                 return true; // No regions available, default to true
             }
 
-            // Query the region for the coins-drop flag
-            boolean canDrop = regions.getApplicableRegions(vector).testState(COINS_DROP_FLAG);
+            // Check if the player is inside any region and get the applicable regions at this location
+            var applicableRegions = regions.getApplicableRegions(vector);
 
-            return canDrop; // Returns true if the flag allows coins to drop, false if blocked
+            // Check if any region denies the coin-drop flag
+            if (applicableRegions.testState(COINS_DROP_FLAG) == StateFlag.State.DENY) {
+                return false; // Return false if coin drop is denied
+            }
+
+            // If no region denies the flag, allow coin drop
+            return true;
         } catch (Exception e) {
-            // In case WorldGuard is not available or any other error occurs
+            // In case of an error, log it and allow coins to drop
             Bukkit.getLogger().log(Level.WARNING, "[Coins-SHFT] Failed to check WorldGuard coins-drop flag at location " + location, e);
             return true; // Default to true in case of error (fallback behavior)
         }
