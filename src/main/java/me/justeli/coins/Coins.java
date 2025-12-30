@@ -31,6 +31,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.justeli.coins.hooks.WorldGuardHook;
+import me.justeli.coins.CustomFlags;
 
 import java.util.ArrayList;
 import java.util.Date;
