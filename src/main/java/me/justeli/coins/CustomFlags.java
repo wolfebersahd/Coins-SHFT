@@ -12,20 +12,19 @@ public class CustomFlags {
     // You can add more flags as needed, like:
     // public static final StateFlag MY_CUSTOM_FLAG = new StateFlag("my-custom-flag", false);
 
+    // This method will register the flags with WorldGuard
     public static void register() {
         try {
             // Register flags with WorldGuard's FlagRegistry
             FlagRegistry registry = WorldGuard.getInstance().getFlagRegistry();
             registry.register(COINS_DROP_FLAG);
             
-            // Register any other flags you may have
-            // registry.register(MY_CUSTOM_FLAG);
-
             // Log successful registration
-            WorldGuard.getInstance().getLogger().log(Level.INFO, "Custom WorldGuard flags registered successfully.");
+            // Ensure you use your plugin's logger here, not WorldGuard's
+            Coins.getInstance().getLogger().log(Level.INFO, "Custom WorldGuard flags registered successfully.");
         } catch (Exception e) {
             // Handle any error that might occur
-            WorldGuard.getInstance().getLogger().log(Level.WARNING, "Failed to register custom WorldGuard flags", e);
+            Coins.getInstance().getLogger().log(Level.WARNING, "Failed to register custom WorldGuard flags", e);
         }
     }
 }
