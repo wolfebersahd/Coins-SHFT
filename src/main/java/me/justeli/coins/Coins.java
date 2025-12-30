@@ -32,14 +32,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.justeli.coins.hooks.WorldGuardHook;
 
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.WorldGuard; // Corrected import
-import com.sk89q.worldguard.managers.RegionManager; // WorldGuard 7.x moved to this package
-import com.sk89q.worldguard.flags.FlagRegistry;
-import com.sk89q.worldguard.flags.StateFlag;
-import com.sk89q.worldguard.flags.FlagConflictException;
-import com.sk89q.worldguard.flags.Flag;
-
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 
 import java.util.ArrayList;
 import java.util.Date;
