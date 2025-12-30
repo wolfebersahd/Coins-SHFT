@@ -32,7 +32,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.justeli.coins.hooks.WorldGuardHook;
 
-import com.sk89q.worldguard.bukkit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuard;
 import com.sk89q.worldguard.bukkit.flags.FlagRegistry;
