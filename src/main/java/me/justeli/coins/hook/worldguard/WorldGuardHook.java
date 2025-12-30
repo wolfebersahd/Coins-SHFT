@@ -9,14 +9,13 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 
 public final class WorldGuardHook {
 
-    /** The custom coins-drop flag. True = coins can drop, False = cannot drop. */
+    /** The custom coins-drop flag. */
     public static StateFlag COINS_DROP_FLAG;
 
     private static WorldGuardPlugin wgPlugin;
@@ -38,11 +37,10 @@ public final class WorldGuardHook {
         try {
             // Query the region container for the state of the "coins-drop" flag
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-            return container.createQuery().testState(
-                    BukkitAdapter.adapt(location),
-                    null,
-                    COINS_DROP_FLAG
-            );
+            StateFlag.State state = container.createQuery().getFlag(COINS_DROP_FLAG, BukkitAdapter.adapt(location));
+
+            // If the state is ALLOW, coins can drop
+            return state == StateFlag.State.ALLOW;
         } catch (Exception e) {
             // In case WorldGuard is not available or any other error occurs
             Bukkit.getLogger().log(Level.WARNING, "[Coins-SHFT] Failed to check WorldGuard coins-drop flag at location " + location, e);
