@@ -35,7 +35,7 @@ public final class WorldGuardHook {
             return;
         }
 
-        COINS_DROP_FLAG = new StateFlag("coins-drop", false);  // Default to deny coins-drop
+        COINS_DROP_FLAG = new StateFlag("coins-drop", true);  // Default to deny coins-drop
 
         // Register the flag with WorldGuard
         try {
